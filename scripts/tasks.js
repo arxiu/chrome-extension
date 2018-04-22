@@ -18,5 +18,5 @@ exports.copyAssets = (type) => {
   mkdir(type);
   cp(`src/manifest.${env}.json`, `${type}/manifest.json`);
   cp('-R', 'src/assets/*', type);
-  //exec(`pug -O "{ env: '${env}' }" -o ${type} src/views/`);
+  exec(`pug -O "{ env: '${env}' }" -o ${type} src/views/`);
 };
