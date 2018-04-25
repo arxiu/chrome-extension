@@ -1,15 +1,7 @@
-import React from 'react';
-import { render } from 'react-dom';
+import React from 'react'
+import { render } from 'react-dom'
 import InputDock from './inputDock'
-
-const killInheritStyles = {
-    margin:'0px',
-    padding:'0px',
-    borderRadius:'0px',
-    backgroundColor:'blue',
-    width:'initial'
-  }
-
+import {Styles} from './styles'
 
 let replaceStyle = (domStyle, newStyle)=>
 {
@@ -19,20 +11,15 @@ let replaceStyle = (domStyle, newStyle)=>
     });
 }
 
-
 let inject=(id, component)=>
 {
-    console.log('injeting')
-    const injectedDiv = document.createElement('div');
+    const injectedDiv = document.createElement('div')
     //injectedDiv.className = 'inject-react-example';
     injectedDiv.className = id;
-    //Object.assign(injectedDiv.style, killInheritStyles)
-    //injectedDiv.style.setProperty('borderRadius','0px', 'important')
-    //injectedDiv.style.setProperty('backroundColor','blue', 'important')
-
-    replaceStyle(injectedDiv.style, killInheritStyles)
+    injectedDiv.id = id;
+    //replaceStyle(injectedDiv.style, Styles.killInheritStyles)
     document.body.appendChild(injectedDiv);
     render(component, injectedDiv);
 }
 
-inject('arxiu-new', <InputDock/>)
+inject('arxiu', <InputDock/>)
