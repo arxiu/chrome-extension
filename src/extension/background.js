@@ -7,11 +7,6 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab)=>{
     
     if(changeInfo.status==='loading')
     {
-        chrome.tabs.insertCSS(tabId, {
-            //code: '#arxiu{background-color: #f00 !important;}'
-            file: 'css/arxiu.css'
-        })
-
         chrome.tabs.executeScript(tabId, {
             file: 'js/inject.bundle.js',
         })

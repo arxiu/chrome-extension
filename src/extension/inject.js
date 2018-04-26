@@ -2,22 +2,29 @@ import React from 'react'
 import { render } from 'react-dom'
 import InputDock from './inputDock'
 import {Styles} from './styles'
+import arxiuCSS from './arxiu.css';
 
-let replaceStyle = (domStyle, newStyle)=>
-{
-    Object.keys(newStyle).forEach(function(prop) {
-        console.log(prop, newStyle[prop])
-       domStyle.setProperty(prop, newStyle[prop], 'important')
-    });
-}
+let resetStyle = '#arxiu div {\n'
+resetStyle+= 'background-color: "transparent";\n'
+resetStyle+= 'padding:0;\n'
+resetStyle+= 'margin:0;\n'
+resetStyle+= 'border-radius:0;\n'
+resetStyle+= 'width:100%;\n'
+resetStyle+= 'height:auto;\n'
+resetStyle+= '}'
 
 let inject=(id, component)=>
 {
+    const injectedCSS = document.createElement('style')
+    injectedCSS.type = 'text/css'
+    injectedCSS.rel = 'stylesheet'
+    let style = resetStyle
+    injectedCSS.appendChild(document.createTextNode(style))
+    document.head.appendChild(injectedCSS)
+    
+
     const injectedDiv = document.createElement('div')
-    //injectedDiv.className = 'inject-react-example';
-    injectedDiv.className = id;
     injectedDiv.id = id;
-    //replaceStyle(injectedDiv.style, Styles.killInheritStyles)
     document.body.appendChild(injectedDiv);
     render(component, injectedDiv);
 }
