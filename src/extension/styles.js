@@ -1,7 +1,23 @@
 let Styles = {
 
     dock : {
-        background: 'rgba(0, 0, 0, 0.81)',
+        boxShadow:'none',
+        //background: 'transparent',
+
+        body:{
+            display:'flex',
+            flexDirection:'column',
+            justifyContent:'space-around',
+            minHeight:300,
+            
+            content:{
+                // boxShadow: 'rgba(0, 0, 0, 0.4) 2px 1px 7px 3px',
+                color:'white',
+                padding:20,
+                background: 'rgba(50, 50, 50, 1)',
+                borderRadius:4,
+            }
+        },
     },
 }
 
