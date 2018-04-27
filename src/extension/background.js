@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom'
 import { render } from 'react-dom'
+import messenger from './messenger'
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab)=>{
     //console.log('update', tabId, changeInfo, tab)
@@ -41,28 +42,10 @@ chrome.contextMenus.create({
   }
 })
 
-let processResponse=(response)=>
-{
-    console.log(response)
-}
-
-let sendMessage=(tabId, message)=>
-{
-    chrome.tabs.sendMessage(tabId, message, processResponse)
-}
-
-let createMessage=(functionId, args)=>
-{
-    return {
-        func:functionId,
-        args:args
-    }
-}
-
 let hugContent=(tabId, content)=>
 {
-    let msg = createMessage('inputHug', content)
-    sendMessage(tabId, msg)
+    let msg = messenger.createMessage('inputHug', content)
+    messenger.sendToTab(tabId, msg)
 }
 
 let formatSelectedText=(info)=>
@@ -72,3 +55,4 @@ let formatSelectedText=(info)=>
         parents:[info.pageUrl]
     }
 }
+

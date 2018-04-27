@@ -2,14 +2,22 @@ import React, { Component } from 'react'
 import { render } from 'react-dom'
 import Dock from 'react-dock'
 import {Styles} from './styles'
+import messenger from './messenger'
 
 export default class InputDock extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isVisible: true,
+      isVisible: false,
       dockWidth:200
     }
+    messenger.listenToBackground()
+    messenger.registerFunction('inputHug', this.inputHug)
+  }
+
+  inputHug=(content)=>
+  {
+    this.setState({isVisible:true})
   }
 
   buttonOnClick = () => {
