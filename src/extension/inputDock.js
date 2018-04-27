@@ -38,10 +38,6 @@ export default class InputDock extends Component {
                     <div  style ={Styles.dock.body.content}>
                       Add stuff here    
                     </div>
-
-                    <div  style ={Styles.dock.body.content}>
-                      And here    
-                    </div>
             </div>
 
         </Dock>

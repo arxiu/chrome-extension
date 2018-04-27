@@ -1,14 +1,17 @@
 let Styles = {
 
     dock : {
-        boxShadow:'none',
-        //background: 'transparent',
+        boxShadow:'red',
+        backgroundColor: 'transparent',
+        height:'100%',
+        boxShadow: 'rgba(0, 0, 0, 0.4) 2px 1px 7px 3px',
 
         body:{
             display:'flex',
             flexDirection:'column',
             justifyContent:'space-around',
             minHeight:300,
+            height:'100%',
             
             content:{
                 // boxShadow: 'rgba(0, 0, 0, 0.4) 2px 1px 7px 3px',
