@@ -2,6 +2,15 @@ import ReactDOM from 'react-dom'
 import { render } from 'react-dom'
 import messenger from './messenger'
 
+
+let getVerb=()=>
+{
+    let verbs = ['Pin', 'Add', 'Hug', 'Absorb', 'Get', 'Link', 'Save', 'Store']
+    let random = Math.floor(Math.random()*verbs.length)
+    console.log(verbs[random])
+    return verbs[random]
+}
+
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab)=>{
     //console.log('update', tabId, changeInfo, tab)
     
@@ -14,31 +23,24 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab)=>{
 })
 
 chrome.contextMenus.create({
-    title: "Hug this text", 
+    title: getVerb()+" this text", 
     contexts:["selection"], 
     onclick: function(info, tab) {
-        console.log(info)
-        console.log(tab)
         hugContent(tab.id, formatSelectedText(info) )
     }
 })
 
 chrome.contextMenus.create({
-    title: "Hug this image", 
+    title: getVerb()+" this image", 
     contexts:["image"], 
     onclick: function(info, tab) {
-        console.log(info)
-        console.log(tab)
   }
 })
 
-
 chrome.contextMenus.create({
-    title: "Hug this link    ", 
+    title: getVerb()+" this link", 
     contexts:["link"], 
     onclick: function(info, tab) {
-        console.log(info)
-        console.log(tab)
   }
 })
 
