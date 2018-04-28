@@ -40,6 +40,7 @@ export default class InputDock extends Component {
             dimMode="none"
             isVisible={this.state.isVisible}
             dockStyle={Styles.dock}
+            duration = {200}
             onSizeChange={this.onResize}>
             
             <div style = {Styles.dock.body}>
