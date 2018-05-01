@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Dock from 'react-dock'
-import { Styles } from './styles'
+import { Styles } from './ui/styles'
 import messenger from './messenger'
 import BasicInput from './ui/basicInput.js'
 
@@ -10,7 +10,7 @@ export default class InputDock extends Component {
         this.state = {
             isVisible: true,
             dockWidth: 320,
-            inputValue:'hello'
+            inputValue: 'hello'
         }
         messenger.listenToBackground()
         messenger.registerFunction('inputHug', this.inputHug)
@@ -28,34 +28,30 @@ export default class InputDock extends Component {
         this.setState({ dockWidth: value })
     }
 
-    onInputChange = (newValue) =>
-    {
+    onInputChange = (newValue) => {
         console.log(newValue)
-        this.setState({inputValue:newValue})
+        this.setState({ inputValue: newValue })
     }
 
     render() {
         return (
-                <Dock
-                    position="right"
-                    fluid={false}
-                    size={this.state.dockWidth}
-                    dimMode="none"
-                    isVisible={this.state.isVisible}
-                    dockStyle={Styles.dock}
-                    duration={200}
-                    onSizeChange={this.onResize}>
-                     <div style={Styles.dock.body}>
-                            <div style={Styles.dock.body.content}>
-                                Add stuff here
-                                
-                                <BasicInput
-                                    value={this.state.inputValue}
-                                    onChange={this.onInputChange} />
-                               
-                            </div>  
-                        </div>
-                </Dock>
+            <Dock
+                position="right"
+                fluid={false}
+                size={this.state.dockWidth}
+                dimMode="none"
+                isVisible={this.state.isVisible}
+                dockStyle={Styles.dock}
+                duration={200}
+                onSizeChange={this.onResize}>
+                <div style={Styles.dock.content}>
+
+                    <BasicInput
+                        value={this.state.inputValue}
+                        onChange={this.onInputChange} />
+
+                </div>
+            </Dock>
 
         )
     }
