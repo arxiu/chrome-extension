@@ -1,17 +1,16 @@
 import React, { Component } from 'react'
-import { render } from 'react-dom'
 import Dock from 'react-dock'
 import { Styles } from './styles'
 import messenger from './messenger'
-
-import input from './ui/input.js'
+import BasicInput from './ui/basicInput.js'
 
 export default class InputDock extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            isVisible: false,
-            dockWidth: 200
+            isVisible: true,
+            dockWidth: 320,
+            inputValue:'hello'
         }
         messenger.listenToBackground()
         messenger.registerFunction('inputHug', this.inputHug)
@@ -29,9 +28,14 @@ export default class InputDock extends Component {
         this.setState({ dockWidth: value })
     }
 
+    onInputChange = (newValue) =>
+    {
+        console.log(newValue)
+        this.setState({inputValue:newValue})
+    }
+
     render() {
         return (
-            <div>       
                 <Dock
                     position="right"
                     fluid={false}
@@ -41,16 +45,28 @@ export default class InputDock extends Component {
                     dockStyle={Styles.dock}
                     duration={200}
                     onSizeChange={this.onResize}>
-
-                    <div style={Styles.dock.body}>
-                        <div style={Styles.dock.body.content}>
-                            Add stuff here
-                            <input/>
+                     <div style={Styles.dock.body}>
+                            <div style={Styles.dock.body.content}>
+                                Add stuff here
+                                
+                                <BasicInput
+                                    value={this.state.inputValue}
+                                    onChange={this.onInputChange} />
+                               
+                            </div>  
                         </div>
-                    </div>
-
                 </Dock>
-            </div>
+
         )
     }
 }
+
+/*
+<iframe
+    style={{ width: '100%',height: '100%'}}
+    frameBorder={0}
+    allowTransparency="true"
+    src={chrome.extension.getURL(`inject.html?protocol=${location.protocol}`)}/>
+    */
+/*
+*/

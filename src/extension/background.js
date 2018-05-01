@@ -2,11 +2,10 @@ import ReactDOM from 'react-dom'
 import { render } from 'react-dom'
 import messenger from './messenger'
 
-
 let getVerb = () => {
     let verbs = ['Pin', 'Add', 'Hug', 'Absorb', 'Get', 'Link', 'Save', 'Store']
-    let random = Math.floor(Math.random() * verbs.length)
-    console.log(verbs[random])
+    let random = Math.floor(Math.random() * (verbs.length-1))
+    console.log(verbs[random], random, verbs.length)
     return verbs[random]
 }
 
