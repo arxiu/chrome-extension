@@ -1,3 +1,5 @@
+// @flow
+
 let Styles = {
 
     dock: {
@@ -7,21 +9,14 @@ let Styles = {
         flexDirection: 'column',
         justifyContent: 'space-around',
     
-        body: {
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-around',
-            minHeight: 300,
-            height: '100%',
+        content: {
+            // boxShadow: 'rgba(0, 0, 0, 0.4) 2px 1px 7px 3px',
+            color: 'white',
+            padding: 20,
+            background: 'rgba(50, 50, 50, 1)',
+            borderRadius: 4,
+        }
 
-            content: {
-                // boxShadow: 'rgba(0, 0, 0, 0.4) 2px 1px 7px 3px',
-                color: 'white',
-                padding: 20,
-                background: 'rgba(50, 50, 50, 1)',
-                borderRadius: 4,
-            }
-        },
     },
 
     basicInput:{
@@ -42,14 +37,39 @@ let Styles = {
                 borderBottomStyle: 'solid',
             }
         },
-
-
     }
 }
 
 class SuperStyle {
-    constructor(){
 
+    style:{}
+    extensions:{}
+
+    constructor(newStyle){
+        if(newStyle.style)
+        {
+            this.style = newStyle.style
+            if(newStyle.extensions)
+            {
+                this.extensions = newStyle.extensions
+            }
+        }
+        else
+        {
+            this.style = newStyle()
+        }
+    }
+
+    apply=(props:{})=>
+    {
+        let extendedSyle = Object.assign({}, this.style)
+        for(let prop in props)
+        {
+            if(props[prop])
+                if(this.extensions[prop])
+                    extendedSyle = Object.assign(extendedSyle, this.style[prop])      
+        }
+        return extendedSyle
     }
 
     
