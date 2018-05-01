@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM, { render } from 'react-dom'
 import InputDock from './inputDock'
+import retargetEvents from 'react-shadow-dom-retarget-events';
 
 let inject = (id, component) => {
 
@@ -12,14 +13,15 @@ let inject = (id, component) => {
   }
 
   let el = document.createElement('div');
-  root.attachShadow({ mode: 'open' });
-  root.shadowRoot.appendChild(el);
+  let shadowRoot = root.attachShadow({ mode: 'open' });
+  shadowRoot.appendChild(el);
 
   const App = () => (
     <InputDock/>
   )
 
   render(<App />, el);
+  retargetEvents(shadowRoot);
 }
 
 inject('arxiu')
