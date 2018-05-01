@@ -2,7 +2,6 @@ let x = {}
 
 x.listenToBackground = () => {
     chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
-        console.log('Got message', msg)
         x.onMessage(msg)
         sendResponse()
     })
@@ -28,15 +27,12 @@ x.createMessage = (functionId, args) => {
 }
 
 x.processResponse = (response) => {
-    console.log(response)
 }
 
 x.registry = {}
 
 x.sendToBackground = (message) => {
-    chrome.runtime.sendMessage(message, function (response) {
-        console.log(response);
-    });
+    chrome.runtime.sendMessage(message, processResponse)
 }
 
 x.sendToTab = (tabId, message) => {
