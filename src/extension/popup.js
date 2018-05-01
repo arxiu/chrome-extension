@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
 import Dock from 'react-dock'
-import { Styles } from './styles'
+import { Styles } from './ui/styles'
 import messenger from './messenger'
 
 import BasicInput from './ui/basicInput.js'
