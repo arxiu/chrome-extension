@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
-import { Styles } from './styles'
+import Styles from './styles'
+import SuperStyle from './superStyle'
 
+const basicInputStyle = new SuperStyle(Styles.basicInput)
+const inputStyle = new SuperStyle(Styles.basicInput.input)
 
 export default class BasicInput extends React.Component {
     constructor(props) {
@@ -37,11 +40,11 @@ export default class BasicInput extends React.Component {
 
     render() {
         return (
-            <div style={Styles.basicInput}>
+            <div style={basicInputStyle.style}>
 
                 Unga  bunga
                 <input
-                    style={Styles.basicInput.input}
+                    style={inputStyle.apply({hasFocus:this.state.hasFocus})}
                     type="text"
                     value={this.props.value}
                     onChange={this.handleChange}

@@ -1,78 +1,60 @@
 // @flow
 
-let Styles = {
+var Color = require('color');
 
+let Colors = {
+    accent: 'wheat',
+    light: 'white',
+    dark: 'rgb(60, 55, 50)'
+}
+
+let Theme = {
+    accent:Colors.accent,
+    dark: Colors.dark,
+    light: Colors.light,
+    overDarkLight: Color(Colors.light).alpha(0.03),
+    overDarkDark: Color('black').alpha(0.2),
+    overLightLight: Color('white').alpha(0.2),
+    overLightDark: Color(Colors.dark).alpha(0.03),
+}
+
+let Styles = {
     dock: {
-        background: 'rgb(60, 55, 50)',
-        height: '100%',
+        background: Theme.dark,
+        height: '99%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-around',
-    
+        color: Theme.light,
+
         content: {
-            // boxShadow: 'rgba(0, 0, 0, 0.4) 2px 1px 7px 3px',
-            color: 'white',
             padding: 20,
-            background: 'rgba(50, 50, 50, 1)',
+            background: Theme.overDarkDark,
             borderRadius: 4,
         }
-
     },
 
-    basicInput:{
-        padding:10,
+    basicInput: {
 
+        padding: 10,
 
-        input:{
+        input: {
             padding: 10,
             fontSize: '1.1em',
             border: 'none',
-            backgroundColor: 'rgba(255, 255, 255, 0.03)',
-            borderBottomColor: 'white',
+            backgroundColor: Theme.overDarkLight,
+            borderBottomColor: Theme.accent,
             borderBottomStyle: 'none',
-            borderBottomWidth: 2,
-            color: 'wheat',
+            borderBottomWidth: 1,
+            color: Theme.accent,
+            outline: 'none',
 
-            hasFocus:{
+            hasFocus: {
                 borderBottomStyle: 'solid',
+                backgroundColor: Theme.overDarkLight,
             }
         },
     }
 }
 
-class SuperStyle {
-
-    style:{}
-    extensions:{}
-
-    constructor(newStyle){
-        if(newStyle.style)
-        {
-            this.style = newStyle.style
-            if(newStyle.extensions)
-            {
-                this.extensions = newStyle.extensions
-            }
-        }
-        else
-        {
-            this.style = newStyle()
-        }
-    }
-
-    apply=(props:{})=>
-    {
-        let extendedSyle = Object.assign({}, this.style)
-        for(let prop in props)
-        {
-            if(props[prop])
-                if(this.extensions[prop])
-                    extendedSyle = Object.assign(extendedSyle, this.style[prop])      
-        }
-        return extendedSyle
-    }
-
-    
-}
-
-module.exports.Styles = Styles
+module.exports = Styles

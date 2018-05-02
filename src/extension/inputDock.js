@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import Dock from 'react-dock'
-import { Styles } from './ui/styles'
+import Styles from './ui/styles'
 import messenger from './messenger'
-import BasicInput from './ui/basicInput.js'
+import BasicInput from './ui/basicInput'
 
 export default class InputDock extends Component {
     constructor(props) {
@@ -44,7 +44,7 @@ export default class InputDock extends Component {
                 dockStyle={Styles.dock}
                 duration={200}
                 onSizeChange={this.onResize}>
-                <div style={Styles.dock.content}>
+                <div style={Styles.dock.content}>       
 
                     <BasicInput
                         value={this.state.inputValue}
