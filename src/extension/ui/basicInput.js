@@ -11,24 +11,33 @@ export default class BasicInput extends React.Component {
         this.state = { hasFocus: false }
     }
 
-    handleChange = (event) => {
+    onChange = (event) => {
         const value = event.target.value
-        this.checkEndingPattern(value)
-
-        this.props.onChange(value)
+        console.log('value', value)
+        let found = this.checkEndingPattern(value)
+        console.log('value2')
+        if(!found)
+            this.props.onChange(value)
         this.onFocus()
-        //this.setState({ value: value });
     }
 
     checkEndingPattern(str) {
-        if (this.props.endingPattern && this.props.onEndingPattern) {
-            if (this.hasEndingPattern(str, this.props.endingPattern)) {
-                let text = str.slice(0, -this.props.endingPattern.length)
+        let pat = this.props.endingPattern
+        if (pat && this.props.onEndingPattern) {
+            let hasEndingPattern = this.hasEndingPattern(str, pat)
+            console.log('hasEndingPattern', hasEndingPattern)
+            if (hasEndingPattern) {
+                let text = str.slice(0, -pat.length)
                 this.props.onEndingPattern(text)
+                return true
             }
         }
+        return false
     }
     onFocus = () => {
+        if(this.state.hasFocus)
+            return
+
         this.setState({ hasFocus: true })
         if (this.props.onFocus)
             this.props.onFocus()
@@ -44,12 +53,16 @@ export default class BasicInput extends React.Component {
         this.onFocus()
     }
 
+    onKeyCodePress=(e)=>{
+        if(e.code === this.props.keyCode)
+            this.props.onKeyCodePressed(this.props.keyCode)
+    }
+
     hasEndingPattern = (str, pattern) => {
         let index = str.indexOf(pattern)
-        console.log(index, str.length, pattern.length)
-        if (index == str.length - pattern.length)
-            return true
-        return false
+        if (index <1)
+            return false
+        return (index === str.length - pattern.length)
     }
 
     render() {
@@ -59,10 +72,11 @@ export default class BasicInput extends React.Component {
                     style={inputStyle.apply({ hasFocus: this.state.hasFocus })}
                     type="text"
                     value={this.props.value}
-                    onChange={this.handleChange}
+                    onChange={this.onChange}
                     onBlur={this.onBlur}
                     onFocus={this.onFocus}
                     onClick={this.onClick}
+                    onKeyCodePress={this.onKeyCodePress}
                 />
             </div>
         );
