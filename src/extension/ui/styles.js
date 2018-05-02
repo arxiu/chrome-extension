@@ -21,22 +21,20 @@ let Theme = {
 let Styles = {
     dock: {
         background: Theme.dark,
-        height: '99%',
+        height: '100%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-around',
         color: Theme.light,
+    },
 
-        content: {
-            padding: 20,
-            background: Theme.overDarkDark,
-            borderRadius: 4,
-        }
+    section:{
+        padding: 20,
+        background: Theme.overDarkDark,
+        marginBottom:20
     },
 
     basicInput: {
-
-        padding: 10,
 
         input: {
             padding: 10,
@@ -48,6 +46,7 @@ let Styles = {
             borderBottomWidth: 1,
             color: Theme.accent,
             outline: 'none',
+            borderRadius: 4,
 
             hasFocus: {
                 borderBottomStyle: 'solid',

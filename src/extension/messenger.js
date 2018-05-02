@@ -12,7 +12,8 @@ x.listenToTabs = () => {
 }
 
 x.onMessage = (msg) => {
-    x.registry[msg.func](...msg.args)
+    console.log('got', msg)
+    x.registry[msg.func](msg.args)
 }
 
 x.registerFunction = (functionId, func) => {
@@ -36,6 +37,7 @@ x.sendToBackground = (message) => {
 }
 
 x.sendToTab = (tabId, message) => {
+    console.log('sending', message)
     chrome.tabs.sendMessage(tabId, message, x.processResponse)
 }
 

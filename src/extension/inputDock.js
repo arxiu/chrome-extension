@@ -4,20 +4,31 @@ import Styles from './ui/styles'
 import messenger from './messenger'
 import BasicInput from './ui/basicInput'
 
+import Previewer from './ui/previewer'
+
 export default class InputDock extends Component {
     constructor(props) {
         super(props)
         this.state = {
             isVisible: true,
+            defaultWidth: 320,
+            minDockWidth: 250,
+            closeDockWidth:120  ,
             dockWidth: 320,
-            inputValue: 'hello'
+            inputValue: 'hello',
+            content:{}
         }
         messenger.listenToBackground()
         messenger.registerFunction('inputHug', this.inputHug)
     }
 
     inputHug = (content) => {
-        this.setState({ isVisible: true })
+        console.log('content', content)
+        let width = this.state.dockWidth
+        if (this.state.dockWidth < this.state.minDockWidth)
+            width = this.state.defaultWidth
+
+        this.setState({ isVisible: true, dockWidth: width, content:content })
     }
 
     buttonOnClick = () => {
@@ -25,11 +36,14 @@ export default class InputDock extends Component {
     }
 
     onResize = (value) => {
-        this.setState({ dockWidth: value })
+    
+        if (value < this.state.minDockWidth)
+            this.setState({ dockWidth: this.state.minDockWidth })
+        else
+            this.setState({ dockWidth: value })   
     }
 
     onInputChange = (newValue) => {
-        console.log(newValue)
         this.setState({ inputValue: newValue })
     }
 
@@ -44,12 +58,17 @@ export default class InputDock extends Component {
                 dockStyle={Styles.dock}
                 duration={200}
                 onSizeChange={this.onResize}>
-                <div style={Styles.dock.content}>       
+                <div style={Styles.section}>
+                    <Previewer
+                        content={this.state.content}
+                        value={this.state.inputValue}
+                        onChange={this.onInputChange} />
+                </div>
 
+                <div style={Styles.section}>
                     <BasicInput
                         value={this.state.inputValue}
                         onChange={this.onInputChange} />
-
                 </div>
             </Dock>
 
